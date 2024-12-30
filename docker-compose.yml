@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   caddy:
     image: caddy:latest
@@ -6,7 +8,10 @@ services:
       - .env
       - ./hashes/.env.caddy # Use the generated hashed passwords
     networks:
-      - caddy-net
+      caddy-net:
+        ipv4_address: 192.168.100.250  # High IP in caddy-net
+      wg-net:
+        ipv4_address: 10.8.0.250        # High IP in wg-net
     restart: unless-stopped
     ports:
       - "80:80"    # HTTP
@@ -30,7 +35,7 @@ services:
       FTLCONF_LOCAL_IPV4: "192.168.100.100"
     networks:
       caddy-net:
-        ipv4_address: 192.168.100.100
+        ipv4_address: 192.168.100.200  # High IP in caddy-net
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -58,9 +63,9 @@ services:
 
       # Optional:
       - PASSWORD_HASH=$$2y$$10$$hBCoykrB95WSzuV4fafBzOHWKu9sbyVa34GJr8VV5R/pIelfEMYyG
-      - WG_DEFAULT_ADDRESS=10.8.0.x
-      - WG_DEFAULT_DNS=192.168.100.100
-      - WG_ALLOWED_IPS=10.8.0.0/24, 192.168.100.0/24
+      - WG_DEFAULT_ADDRESS=10.8.0.1/24       # Assigning server IP in wg-net
+      - WG_DEFAULT_DNS=192.168.100.200       # Pi-hole DNS
+      - WG_ALLOWED_IPS=10.8.0.0/24,192.168.100.0/24
     volumes:
       - ./config/wg-easy:/etc/wireguard
     ports:
@@ -73,6 +78,9 @@ services:
     sysctls:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.src_valid_mark=1
+    networks:
+      wg-net:
+        ipv4_address: 10.8.0.1  # WireGuard gateway IP
 
 networks:
   caddy-net:
@@ -80,3 +88,8 @@ networks:
     ipam:
       config:
         - subnet: 192.168.100.0/24
+  wg-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.8.0.0/24
