@@ -57,3 +57,7 @@ services:
 volumes:
   etc_wireguard:
     external: false
+
+networks:
+  caddy-net:
+    external: true
