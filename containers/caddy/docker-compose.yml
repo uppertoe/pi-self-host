@@ -5,8 +5,6 @@ services:
     env_file:
       - ../../.env
       - ../../hashes/.env.caddy # Use the generated hashed passwords
-    networks:
-     - caddy-net
     restart: unless-stopped
     ports:
       - "80:80"    # HTTP

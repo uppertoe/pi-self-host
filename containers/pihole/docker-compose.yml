@@ -11,9 +11,6 @@ services:
       TZ: "${TZ}"
       WEBPASSWORD: "" # Auth by Caddy
       FTLCONF_LOCAL_IPV4: "pihole"
-    networks:
-      caddy-net:
-        ipv4_address: 10.2.0.100
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -30,3 +27,4 @@ services:
 networks:
   caddy-net:
     external: true
+    ipv4_address: 10.2.0.100
