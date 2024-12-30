@@ -18,7 +18,7 @@ services:
       # - PORT=51821
       # - WG_PORT=51820
       # - WG_CONFIG_PORT=92820
-      # - WG_DEFAULT_ADDRESS=10.8.0.x
+      - WG_DEFAULT_ADDRESS=10.8.0.x  # Checked by Caddy to determine internal vs external
       - WG_DEFAULT_DNS=172.19.0.7
       # - WG_MTU=1420
       # - WG_ALLOWED_IPS=192.168.15.0/24, 10.0.1.0/24

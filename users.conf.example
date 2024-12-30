@@ -3,3 +3,5 @@ pihole,admin,SuperSecretPassword
 homeassistant,homeassistant_user,HomeAssistantPass
 calibre,calibre_user,CalibrePass
 static_site,static_site_user,StaticSitePass
+wireguard,wireguard_user,WireguardPass
+prometheus,prometheus_user,PrometheusPass
