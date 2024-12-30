@@ -68,8 +68,9 @@ services:
     ports:
       - "51820:51820/udp"  # WireGuard Port
       - "51821:51821/tcp"  # wg-easy Web Interface
-    network_mode: "service:caddy"
     restart: unless-stopped
+    networks:
+      - caddy-net
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
