@@ -29,7 +29,7 @@ services:
         iptables -A FORWARD -o wg0 -j ACCEPT; \
         iptables -t nat -A PREROUTING -s 10.8.0.0/24 -p udp --dport 53 -j DNAT --to-destination pihole:53; \
         iptables -t nat -A PREROUTING -s 10.8.0.0/24 -p tcp --dport 53 -j DNAT --to-destination pihole:53; \
-        iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -d 172.19.0.0/24 -j RETURN; \
+        iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -d caddy -j RETURN; \
         iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE;" > /etc/wireguard/post-up.txt
       # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
       # - WG_POST_DOWN=echo "Post Down" > /etc/wireguard/post-down.txt
