@@ -5,8 +5,8 @@ services:
     image: caddy:latest
     container_name: caddy
     env_file:
-      - ../../../.env
-      - ../../../hashes/.env.caddy # Use the generated hashed passwords
+      - ../../.env
+      - ../../hashes/.env.caddy # Use the generated hashed passwords
     networks:
       - caddy-net
       - wireguard-net
