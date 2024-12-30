@@ -1,5 +1,6 @@
 {
     email {$CADDY_EMAIL}
+    debug
 }
 
 # Common Handle Block for Internal (WireGuard) Requests
