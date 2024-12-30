@@ -23,8 +23,6 @@ volumes:
     external: false
 
 networks:
-  caddy-net:
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.2.0.0/24
+  default:
+    name: caddy-net
+    external: true
