@@ -24,7 +24,13 @@ services:
       # - WG_ALLOWED_IPS=192.168.15.0/24, 10.0.1.0/24
       # - WG_PERSISTENT_KEEPALIVE=25
       # - WG_PRE_UP=echo "Pre Up" > /etc/wireguard/pre-up.txt
-      - WG_POST_UP=echo "iptables -A INPUT -p udp -m udp --dport 51820 -j ACCEPT; iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT;" > /etc/wireguard/post-up.txt
+      - WG_POST_UP=echo "iptables -A INPUT -p udp -m udp --dport 51820 -j ACCEPT; \
+        iptables -A FORWARD -i wg0 -j ACCEPT; \
+        iptables -A FORWARD -o wg0 -j ACCEPT; \
+        iptables -t nat -A PREROUTING -s 10.8.0.0/24 -p udp --dport 53 -j DNAT --to-destination pihole:53; \
+        iptables -t nat -A PREROUTING -s 10.8.0.0/24 -p tcp --dport 53 -j DNAT --to-destination pihole:53; \
+        iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -d 172.19.0.0/24 -j RETURN; \
+        iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE;" > /etc/wireguard/post-up.txt
       # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
       # - WG_POST_DOWN=echo "Post Down" > /etc/wireguard/post-down.txt
       # - UI_TRAFFIC_STATS=true
