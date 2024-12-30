@@ -8,7 +8,6 @@ services:
     networks:
       caddy-net:
         ipv4_address: 192.168.100.2
-    network_mode: "service:wg-easy"   # Sharing the network stack with the wg-easy container
     restart: unless-stopped
     ports:
       - "80:80"    # HTTP
@@ -68,7 +67,7 @@ services:
     ports:
       - "51820:51820/udp"  # WireGuard Port
       - "51821:51821/tcp"  # wg-easy Web Interface
-
+    network_mode: "service:caddy"
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
