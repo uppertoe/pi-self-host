@@ -9,6 +9,7 @@ services:
       - ../hashes/.env.caddy # Use the generated hashed passwords
     networks:
       - caddy-net
+      - wireguard-net
     restart: unless-stopped
     ports:
       - "80:80"    # HTTP
@@ -19,12 +20,6 @@ services:
       - ../config/caddy_config:/config
     depends_on:
       - hashgen  # Ensure hashgen runs before Caddy
-
-networks:
-  caddy-net:
-    external: true
-  wireguard-net:
-    external: true
 
 volumes:
   caddy_data:

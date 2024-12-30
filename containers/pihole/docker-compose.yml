@@ -29,6 +29,3 @@ services:
     depends_on:
       - caddy
 
-networks:
-  caddy-net:
-    external: true
