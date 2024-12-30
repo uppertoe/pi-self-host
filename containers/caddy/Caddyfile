@@ -56,7 +56,7 @@ calibre.{$DOMAIN} {
 }
 
 # Calibre-Web Interface
-wireguard.{$DOMAIN} {
+{$WIREGUARD_WEB_SUBDOMAIN}.{$DOMAIN} {
     reverse_proxy wg-easy:51821
 }
 
