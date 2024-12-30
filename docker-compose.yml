@@ -6,8 +6,7 @@ services:
       - .env
       - ./hashes/.env.caddy # Use the generated hashed passwords
     networks:
-      caddy-net:
-        ipv4_address: 192.168.100.2
+      - caddy-net
     restart: unless-stopped
     ports:
       - "80:80"    # HTTP
@@ -64,7 +63,6 @@ services:
       - WG_ALLOWED_IPS=10.8.0.0/24
     volumes:
       - ./config/wg-easy:/etc/wireguard
-
     ports:
       - "51820:51820/udp"  # WireGuard Port
       - "51821:51821/tcp"  # wg-easy Web Interface
