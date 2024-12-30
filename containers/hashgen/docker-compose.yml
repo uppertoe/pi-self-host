@@ -1,0 +1,12 @@
+services:
+  hashgen:
+    build: .  # Build the image from the Dockerfile in the current directory
+    image: hashgen:latest  # Tag the image as hashgen:latest
+    container_name: hashgen
+    env_file:
+      - .env
+    volumes:
+      - ./users.conf:/users.conf
+      - ./hashes:/hashes  # Bind mount for .env.caddy
+    entrypoint: ["/hash_generator.sh"]
+    restart: "no"

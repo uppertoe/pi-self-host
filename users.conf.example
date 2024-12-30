@@ -1,0 +1,5 @@
+# Format: service,username,password
+pihole,admin,SuperSecretPassword
+homeassistant,homeassistant_user,HomeAssistantPass
+calibre,calibre_user,CalibrePass
+static_site,static_site_user,StaticSitePass

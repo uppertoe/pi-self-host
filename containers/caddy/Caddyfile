@@ -1,0 +1,62 @@
+{
+    email {$CADDY_EMAIL}
+}
+
+# Common Handle Block for Internal (WireGuard) Requests
+(handle_internal) {
+    @internal {
+        remote_ip {$WIREGUARD_NETWORK}
+    }
+    handle @internal {
+        reverse_proxy {args[0]}:{args[1]}
+    }
+}
+
+# Common Handle Block for External Requests
+(handle_external) {
+    @external {
+        not remote_ip {$WIREGUARD_NETWORK}
+    }
+    handle @external {
+        basic_auth / {
+            {args[2]} {args[3]}
+        }
+
+        reverse_proxy {args[0]}:{args[1]} {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-Port {server_port}
+        }
+
+        header {
+            Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        }
+    }
+}
+
+# Pi-hole Admin Interface
+pihole.{$DOMAIN} {
+    import handle_internal pihole 80
+    import handle_external pihole 80 admin {$PIHOLE_WEBPASSWORD_HASH}
+
+    @root path /
+    redir @root /admin 301
+}
+
+# Home Assistant Interface
+homeassistant.{$DOMAIN} {
+    import handle_internal homeassistant 8123
+    import handle_external homeassistant 8123 {$HOMEASSISTANT_USERNAME} {$HOMEASSISTANT_PASSWORD_HASH}
+}
+
+# Calibre-Web Interface
+calibre.{$DOMAIN} {
+    import handle_internal calibre 8080
+    import handle_external calibre 8080 {$CALIBRE_USERNAME} {$CALIBRE_PASSWORD_HASH}
+}
+
+# Static Site
+{$STATIC_SITE_SUBDOMAIN}.{$DOMAIN} {
+    import handle_internal static_site 80
+    import handle_external static_site 80 {$STATIC_SITE_USERNAME} {$STATIC_SITE_PASSWORD_HASH}
+}

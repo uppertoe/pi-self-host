@@ -1,0 +1,16 @@
+include:
+  - path: '/containers/hashgen/docker-compose.yml'
+  - path: '/containers/caddy/docker-compose.yml'
+  - path: '/containers/adguard/docker-compose.yml'
+
+networks:
+  caddy-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/24
+  wireguard-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
