@@ -6,7 +6,7 @@
 # Common Handle Block for Internal (WireGuard) Requests
 (handle_internal) {
     @internal {
-        remote_ip 10.8.0.0/24  # WireGuard VPN subnet
+        header X-VPN-Client true
     }
     handle @internal {
         reverse_proxy {args[0]}:{args[1]}
@@ -16,7 +16,7 @@
 # Common Handle Block for External Requests
 (handle_external) {
     @external {
-        not remote_ip 10.8.0.0/24  # WireGuard VPN subnet
+        not header X-VPN-Client true
     }
     handle @external {
         basic_auth / {
