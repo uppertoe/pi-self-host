@@ -1,5 +1,4 @@
 include:
-  - path: './containers/hashgen/docker-compose.yml'
   - path: './containers/caddy/docker-compose.yml'
   - path: './containers/wg-easy/docker-compose.yml'
   - path: './containers/pihole/docker-compose.yml'
@@ -14,4 +13,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.21.0.0/24
+        - subnet: "${WIREGUARD_NETWORK}"

@@ -37,7 +37,7 @@
 # Pi-hole Admin Interface
 pihole.{$DOMAIN} {
     import handle_internal pihole 80
-    import handle_external pihole 80 admin {$PIHOLE_WEBPASSWORD_HASH}
+    import handle_external pihole 80 {$PIHOLE_USER} {$PIHOLE_PASS_HASH}
 
     @root path /
     redir @root /admin 301
@@ -46,17 +46,17 @@ pihole.{$DOMAIN} {
 # Home Assistant Interface
 homeassistant.{$DOMAIN} {
     import handle_internal homeassistant 8123
-    import handle_external homeassistant 8123 {$HOMEASSISTANT_USERNAME} {$HOMEASSISTANT_PASSWORD_HASH}
+    import handle_external homeassistant 8123 {$HOMEASSISTANT_USER} {$HOMEASSISTANT_PASS_HASH}
 }
 
 # Calibre-Web Interface
 calibre.{$DOMAIN} {
     import handle_internal calibre 8080
-    import handle_external calibre 8080 {$CALIBRE_USERNAME} {$CALIBRE_PASSWORD_HASH}
+    import handle_external calibre 8080 {$CALIBRE_USER} {$CALIBRE_PASS_HASH}
 }
 
 # Static Site
 {$STATIC_SITE_SUBDOMAIN}.{$DOMAIN} {
     import handle_internal static_site 80
-    import handle_external static_site 80 {$STATIC_SITE_USERNAME} {$STATIC_SITE_PASSWORD_HASH}
+    import handle_external static_site 80 {$STATIC_SITE_USER} {$STATIC_SITE_PASS_HASH}
 }
