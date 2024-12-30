@@ -61,7 +61,7 @@ services:
       - PASSWORD_HASH=$$2y$$10$$hBCoykrB95WSzuV4fafBzOHWKu9sbyVa34GJr8VV5R/pIelfEMYyG
       - WG_DEFAULT_ADDRESS=10.8.0.x
       - WG_DEFAULT_DNS=192.168.100.100
-      - WG_ALLOWED_IPS=10.8.0.0/24, 192.168.100.0/24
+      - WG_ALLOWED_IPS=10.8.0.0/24
     volumes:
       - ./config/wg-easy:/etc/wireguard
 
@@ -69,8 +69,6 @@ services:
       - "51820:51820/udp"  # WireGuard Port
       - "51821:51821/tcp"  # wg-easy Web Interface
     restart: unless-stopped
-    networks:
-      - caddy-net
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
