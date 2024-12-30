@@ -6,5 +6,5 @@ services:
     volumes:
       - ./users.conf:/users.conf
       - ./hashes:/hashes  # Bind mount for .env.caddy
-    entrypoint: ["/hash_generator.sh"]
+    entrypoint: ["/hasher.sh"]
     restart: "no"
