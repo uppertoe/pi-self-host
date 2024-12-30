@@ -5,9 +5,7 @@ services:
     env_file:
       - ../../.env
       - ../../hashes/.env.caddy # Use the generated hashed passwords
-    networks:
-      - caddy-net
-      - wireguard-net
+    networks: caddy-net
     restart: unless-stopped
     ports:
       - "80:80"    # HTTP
@@ -22,3 +20,7 @@ volumes:
     external: false
   caddy_config:
     external: false
+
+networks:
+  caddy-net:
+    driver: bridge

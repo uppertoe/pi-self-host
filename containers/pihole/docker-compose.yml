@@ -10,10 +10,8 @@ services:
     environment:
       TZ: "${TZ}"
       WEBPASSWORD: "" # Auth by Caddy
-      FTLCONF_LOCAL_IPV4: "172.19.0.7"
-    networks:
-      caddy-net:
-        ipv4_address: 172.19.0.7 # Static IP within caddy-net
+      FTLCONF_LOCAL_IPV4: "pihole"
+    networks: caddy-net
     ports:
       - "53:53/tcp"
       - "53:53/udp"

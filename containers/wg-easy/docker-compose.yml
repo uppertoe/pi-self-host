@@ -19,22 +19,10 @@ services:
       # - WG_PORT=51820
       # - WG_CONFIG_PORT=92820
       - WG_DEFAULT_ADDRESS=10.8.0.x  # Checked by Caddy to determine internal vs external
-      - WG_DEFAULT_DNS=172.19.0.7
+      - WG_DEFAULT_DNS=pihole
       # - WG_MTU=1420
       # - WG_ALLOWED_IPS=192.168.15.0/24, 10.0.1.0/24
       # - WG_PERSISTENT_KEEPALIVE=25
-      # Custom iptables Rules
-      - WG_POST_UP=echo "iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -d 172.19.0.0/24 -j RETURN; \
-                          iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE; \
-                          iptables -A INPUT -p udp -m udp --dport 51820 -j ACCEPT; \
-                          iptables -A FORWARD -i wg0 -j ACCEPT; \
-                          iptables -A FORWARD -o wg0 -j ACCEPT" > /etc/wireguard/post-up.txt
-
-      - WG_POST_DOWN=echo "iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -d 172.19.0.0/24 -j RETURN; \
-                            iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE; \
-                            iptables -D INPUT -p udp -m udp --dport 51820 -j ACCEPT; \
-                            iptables -D FORWARD -i wg0 -j ACCEPT; \
-                            iptables -D FORWARD -o wg0 -j ACCEPT" > /etc/wireguard/post-down.txt
       # - WG_PRE_UP=echo "Pre Up" > /etc/wireguard/pre-up.txt
       # - WG_POST_UP=echo "Post Up" > /etc/wireguard/post-up.txt
       # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
@@ -63,11 +51,7 @@ services:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.src_valid_mark=1
 
-    networks:
-      wireguard-net:
-        ipv4_address: 172.21.0.2
-      caddy-net:
-        ipv4_address: 172.19.0.8
+    networks: caddy-net
 
 volumes:
   etc_wireguard:

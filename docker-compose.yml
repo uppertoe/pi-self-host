@@ -2,15 +2,4 @@ include:
   - path: './containers/caddy/docker-compose.yml'
   - path: './containers/wg-easy/docker-compose.yml'
   - path: './containers/pihole/docker-compose.yml'
-
-networks:
-  caddy-net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.19.0.0/24
-  wireguard-net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: "${WIREGUARD_NETWORK}"
+  
