@@ -8,10 +8,10 @@ RUN apk add --no-cache apache2-utils bash
 RUN mkdir /hashes
 
 # Copy the hash generator script
-COPY hash_generator.sh /hash_generator.sh
+COPY hasher.sh /hasher.sh
 
 # Make the script executable
-RUN chmod +x /hash_generator.sh
+RUN chmod +x /hasher.sh
 
 # Set entrypoint
-ENTRYPOINT ["/hash_generator.sh"]
+ENTRYPOINT ["/hasher.sh"]
