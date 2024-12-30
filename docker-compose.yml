@@ -38,9 +38,9 @@ services:
       - "853:853/tcp"
       - "8081:80/tcp"
     volumes:
-      - './pihole/etc-pihole:/etc/pihole'
-      - './pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
-      - './pihole/etc-lighttpd/external.conf:/etc/lighttpd/external.conf'
+      - './config/pihole/etc-pihole:/etc/pihole'
+      - './config/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - './config/pihole/etc-lighttpd/external.conf:/etc/lighttpd/external.conf'
     restart: unless-stopped
     depends_on:
       - caddy
@@ -82,7 +82,7 @@ services:
       # - PROMETHEUS_METRICS_PASSWORD=$$2a$$12$$vkvKpeEAHD78gasyawIod.1leBMKg8sBwKW.pQyNsq78bXV3INf2G # (needs double $$, hash of 'prometheus_password'; see "How_to_generate_a_bcrypt_hash.md" for generate the hash)
 
     volumes:
-      - etc_wireguard:/etc/wireguard
+      - ./config/wg-easy:/etc/wireguard
 
     networks:
       - caddy-net
