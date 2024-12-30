@@ -55,6 +55,11 @@ calibre.{$DOMAIN} {
     import handle_external calibre 8080 {$CALIBRE_USER} {$CALIBRE_PASS_HASH}
 }
 
+# Calibre-Web Interface
+wireguard.{$DOMAIN} {
+    reverse_proxy wg-easy:51821
+}
+
 # Static Site
 {$STATIC_SITE_SUBDOMAIN}.{$DOMAIN} {
     import handle_internal static_site 80
