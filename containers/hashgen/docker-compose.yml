@@ -4,7 +4,7 @@ services:
     image: hashgen:latest  # Tag the image as hashgen:latest
     container_name: hashgen
     volumes:
-      - ./users.conf:/users.conf
-      - ./hashes:/hashes  # Bind mount for .env.caddy
+      - ../../users.conf:/users.conf
+      - ../../hashes:/hashes  # Bind mount for .env.caddy
     entrypoint: ["/hasher.sh"]
     restart: "no"
