@@ -24,8 +24,8 @@ services:
       # - WG_ALLOWED_IPS=192.168.15.0/24, 10.0.1.0/24
       # - WG_PERSISTENT_KEEPALIVE=25
       # Custom iptables Rules
-      - WG_POST_UP=iptables -t mangle -A PREROUTING -s 10.8.0.0/24 -j MARK --set-mark 1
-      - WG_POST_DOWN=iptables -t mangle -D PREROUTING -s 10.8.0.0/24 -j MARK --set-mark 1
+      - WG_POST_UP=iptables -t nat -A PREROUTING -s 10.8.0.0/24 -d 172.19.0.0/24 -j RETURN
+      - WG_POST_DOWN=iptables -t nat -D PREROUTING -s 10.8.0.0/24 -d 172.19.0.0/24 -j RETURN
       # - WG_PRE_UP=echo "Pre Up" > /etc/wireguard/pre-up.txt
       # - WG_POST_UP=echo "Post Up" > /etc/wireguard/post-up.txt
       # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
