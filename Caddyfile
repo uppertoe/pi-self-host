@@ -4,7 +4,7 @@
 }
 
 {$WIREGUARD_VPN_SUBDOMAIN}.{$DOMAIN} {
-    reverse_proxy wg-easy:517821
+    reverse_proxy wg-easy:51821
 }
 
 # Common Handle Block for Internal (WireGuard) Requests
