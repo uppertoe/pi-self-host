@@ -65,6 +65,8 @@ services:
       - WG_DEFAULT_DNS=192.168.100.200       # Pi-hole DNS
     volumes:
       - ./config/wg-easy:/etc/wireguard
+    networks:
+      - caddy-net
     ports:
       - "51820:51820/udp"  # WireGuard Port
       - "51821:51821/tcp"  # wg-easy Web Interface
