@@ -68,8 +68,8 @@ services:
       - WG_DEFAULT_ADDRESS=10.8.0.1/24
 
       # PostUp and PostDown Commands for Routing
-      - WG_POST_UP=iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; ip rule add from 10.8.0.0/24 table 51820; ip route add 192.168.100.0/24 dev eth0
-      - WG_POST_DOWN=iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; ip rule del from 10.8.0.0/24 table 51820; ip route del 192.168.100.0/24 dev eth0
+      - WG_POST_UP=iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; ip rule add from 10.8.0.0/24 table 51820
+      - WG_POST_DOWN=iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; ip rule del from 10.8.0.0/24 table 51820
     volumes:
       - ./config/wg-easy:/etc/wireguard
     networks:
